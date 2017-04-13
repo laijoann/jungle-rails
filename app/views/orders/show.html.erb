@@ -6,6 +6,22 @@
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
+    <h3>Order details with <%= @order.email %>:</h3>
+    <table>
+      <tr>
+        <th class="col-sm-2">Product</th>
+        <th class="col-sm-4">Product Image</th>
+        <th class="col-sm-4">Description</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+      <tbody>
+          <% @order.line_items.each do |item| %>
+            <%= render "order", item: item %>
+          <% end %>
+      </tbody>
+    </table>
+    <h3>Order total: $<%= Float(@order.total_cents)/100 %></h3>
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
