@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thank you for the order #<%= @order.id %></h1>
+    <p>
+      Order #<%= @order.id %> details:
+      <% @order.line_items.each do |item| %>
+        <%= item.product.name %> x <%= item.quantity %>
+      <% end %>
+      Order total: $<%= Float(@order.total_cents)/100 %>
+    </p>
+    <p>We hope you love it!</p>
+  </body>
+</html>
