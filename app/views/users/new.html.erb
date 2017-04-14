@@ -1,6 +1,11 @@
 <h1>Signup!</h1>
 
-<%= form_for :user, url: "/users" do |f| %>
+<%= form_for :user, url: "/signup" do |f| %>
+<% if @user.errors.any? %>
+  <h4>
+    Sorry! There seem to be <%= pluralize(@user.errors.count, "error") %> with the sign up process. Please try again :)
+  </h4>
+<% end %>
 <div class="form-group">
   <%= f.label :first_name %>
   <%= f.text_field :first_name, class: 'form-control' %>

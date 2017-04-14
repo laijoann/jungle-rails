@@ -1,5 +1,8 @@
 <h2>Log in</h2>
 <%= form_for :user, url: "/login" do |f| %>
+<% if @user.present? %>
+  <h4>Log in error. Please try again!</h4>
+<% end %>
 <div class="form-group">
   <%= f.label :email %>
   <%= f.text_field :email, class: 'form-control' %>
