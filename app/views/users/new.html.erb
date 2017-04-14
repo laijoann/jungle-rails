@@ -3,7 +3,10 @@
 <%= form_for :user, url: "/signup" do |f| %>
 <% if @user.errors.any? %>
   <h4>
-    Sorry! There seem to be <%= pluralize(@user.errors.count, "error") %> with the sign up process. Please try again :)
+    Sorry! There seems to be <%= pluralize(@user.errors.count, "error") %> with the sign up process:
+    <ul><% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %></ul>
   </h4>
 <% end %>
 <div class="form-group">
