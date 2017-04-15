@@ -5,12 +5,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if @user.save
-      session[:user_id] = @user.id
-      redirect_to '/'
+    if !User.find_by(email: params[:user][:email])
+      @user = User.new(user_params)
+      if @user.save
+        session[:user_id] = @user.id
+        redirect_to '/'
+      else
+        render '/users/new'
+      end
     else
-      render '/users/new'
+      flash.notice = "Account already exists. Please log in instead!"
+      redirect_to '/signup'
     end
   end
 

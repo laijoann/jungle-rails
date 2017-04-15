@@ -6,7 +6,13 @@
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
-    <h3>Order details for <%= @order.email if @order.email %>:</h3>
+    <h3>Order details for
+      <% if current_user %>
+        <%= current_user.email %>:
+      <% else %>
+        <%= @order.email %>:
+      <% end %>
+    </h3>
     <table>
       <tr>
         <th class="col-sm-2">Product</th>
