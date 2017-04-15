@@ -24,8 +24,55 @@
           <dd><%= @product.price %></dd>
         </dl>
       </div>
+      <div class="col-sm-8">
+        <dl class="dl-horizontal">
+          <dt><h3><%= pluralize @product.reviews.count, 'Review' %></h3></dt>
+          <dd></dd>
+          <% @product.reviews.order(created_at: :desc).each do |r| %>
+            <dt><%= r.name %></dt>
+            <dd>
+              <% for i in 1..r.rating do %>
+                <%= fa_icon "star" %>
+              <% end %><br>
+              <%= r.description %></dd>
+              <%= form_for [@product, @review] do |f| %>
+              <% if current_user && r.name == "#{current_user.first_name} #{current_user.last_name}" %>
+                <%= link_to product_review_path(:product_id => @product.id, :review_id => r.id), class: 'btn btn-secondary', method: :delete, data: { confirm: "Are you sure?" } do %>
+                  <dd><%= fa_icon "trash", text: 'Delete review' %></dd>
+                <% end %>
+              <% end %>
+              <% end %>
+          <% end %>
+        </dl>
+      </div>
+      <div class="col-sm-8">
+        <dl class="dl-horizontal">
+          <% if current_user %>
+            <%= form_for [@product, @review] do |f| %>
+            <% if @review.errors.any? %>
+              <h4>
+                Sorry! There seems to be <%= pluralize(@review.errors.count, "error") %> with the review process:
+                <ul><% @review.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %></ul>
+              </h4>
+            <% end %>
+            <dt><h3>Add review</h3></dt>
+            <dd></dd>
+            <div class="form-group">
+              <dt><%= f.label :rating %></dt>
+              <dd><%= f.select(:rating, [['5', 5], ['4', 4], ['3', 3], ['2', 2], ['1', 1]]) %></dd>
+            </div>
+            <div class="form-group">
+              <dt><%= f.label :description %></dt>
+              <dd><%= f.text_field :description, class: 'form-control' %></dd>
+            </div>
+              <dd><%= f.submit %></dd>
+            <% end %>
+          <% end %>
+        </dl>
+      </div>
     </div>
-
   </article>
 
 </section>

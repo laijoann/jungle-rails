@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to '/'
     else
+      flash[:notice] = "Log in failed. Please try again!"
       render '/sessions/new'
     end
   end

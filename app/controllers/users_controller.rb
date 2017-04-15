@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include PluralizeHelper
   def new
     @user = User.new
   end

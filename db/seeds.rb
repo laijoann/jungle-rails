@@ -132,5 +132,26 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+puts "Re-creating reviews ..."
+Review.destroy_all
+
+prod1 = Product.find_by name: 'Red Bookshelf'
+prod2 = Product.find_by name: 'Electric Chair'
+
+prod1.reviews.create!({
+  name: 'Jane Doe',
+  rating: 5,
+  description: 'omfg dis amazing'
+})
+prod1.reviews.create!({
+  name: 'John Smith',
+  rating: 4,
+  description: 'ITS LIT'
+})
+prod2.reviews.create!({
+  name: 'Joey Smith',
+  rating: 1,
+  description: 'wtf is dis shit'
+})
 
 puts "DONE!"
