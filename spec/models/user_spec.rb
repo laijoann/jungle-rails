@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  before do
+    @testuser = User.create(first_name: 'Jane', last_name: 'Doe', email: 'jane@doe.com', password: 'JaneDoe', password_confirmation: 'JaneDoe')
+    @failpassword = User.create(last_name: 'No', email: 'jane@DOE.COM', password: 'LULNo', password_confirmation: 'JaneNo')
+  end
   context 'Validations' do
-    before do
-      @testuser = User.create(first_name: 'Jane', last_name: 'Doe', email: 'jane@doe.com', password: 'JaneDoe', password_confirmation: 'JaneDoe')
-      @failpassword = User.create(last_name: 'No', email: 'jane@DOE.COM', password: 'LULNo', password_confirmation: 'JaneNo')
-    end
     it "should create users" do
       expect(@testuser).to be_a User
     end
