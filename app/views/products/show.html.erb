@@ -26,7 +26,8 @@
       </div>
       <div class="col-sm-8">
         <dl class="dl-horizontal">
-          <dt><h3><%= pluralize @product.reviews.count, 'Review' %>:</h3></dt>
+          <dt><h3><%= pluralize @product.reviews.count, 'Review' %></h3></dt>
+          <% if @product.reviews.count > 0 %>
           <dd><h3>average <%= @product.reviews.average(:rating).round(2)%> stars</h3></dd>
           <% @product.reviews.order(created_at: :desc).each do |r| %>
             <dt><%= r.name %></dt>
@@ -40,6 +41,7 @@
                 <%= link_to product_review_path(:product_id => @product.id, :review_id => r.id), class: 'btn btn-secondary', method: :delete, data: { confirm: "Are you sure?" } do %>
                   <dd><%= fa_icon "trash", text: 'Delete review' %></dd>
                 <% end %>
+              <% end %>
               <% end %>
               <% end %>
           <% end %>
@@ -69,6 +71,8 @@
             </div>
               <dd><%= f.submit %></dd>
             <% end %>
+          <% else %>
+          <h4>Please log in to add review</h4>
           <% end %>
         </dl>
       </div>
